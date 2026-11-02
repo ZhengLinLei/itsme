@@ -3,3 +3,8 @@ dist
 *.tar.gz
 .env
 .DS_Store
+data
+__pycache__
+context.txt
+build
+data

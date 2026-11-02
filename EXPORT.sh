@@ -20,7 +20,7 @@ case "${1:-}" in
     echo ">> Pushed: $REMOTE"
     ;;
   tar)
-    OUT="${2:-dist/$(echo "$IMAGE" | tr '/:' '__').tar.gz}"
+    OUT="${2:-build/$(echo "$IMAGE" | tr '/:' '__').tar.gz}"
     mkdir -p "$(dirname "$OUT")"
     echo ">> Saving $IMAGE to $OUT ..."
     docker save "$IMAGE" | gzip > "$OUT"

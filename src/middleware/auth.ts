@@ -1,12 +1,17 @@
-import crypto from 'node:crypto';
 import type { IncomingMessage } from 'node:http';
 
 import config from '../config.js';
+import { bearerToken, safeEqual } from '../security/request.js';
 
+// Shared client key (optional). With ADMIN_API_KEY, admins also pass this check.
 export function authorized(request: IncomingMessage): boolean {
-  if (!config.apiKey) return true;
+  if (!config.auth.apiKey) return true;
+  const token = bearerToken(request);
+  return safeEqual(token, config.auth.apiKey) || adminAuthorized(request);
+}
 
-  const given = Buffer.from((request.headers.authorization || '').replace(/^Bearer\s+/i, ''));
-  const expected = Buffer.from(config.apiKey);
-  return given.length === expected.length && crypto.timingSafeEqual(given, expected);
+export function adminAuthorized(request: IncomingMessage): boolean {
+  return (
+    Boolean(config.auth.adminApiKey) && safeEqual(bearerToken(request), config.auth.adminApiKey)
+  );
 }

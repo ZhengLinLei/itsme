@@ -30,12 +30,14 @@ async function post(
   url: string,
   headers: Record<string, string>,
   body: unknown,
+  signal?: AbortSignal,
 ): Promise<Response> {
+  const timeout = AbortSignal.timeout(timeoutMs);
   const response = await fetch(url, {
     method: 'POST',
     headers: { 'content-type': 'application/json', ...headers },
     body: JSON.stringify(body),
-    signal: AbortSignal.timeout(timeoutMs),
+    signal: signal ? AbortSignal.any([timeout, signal]) : timeout,
   });
   if (!response.ok) {
     const text = await response.text().catch(() => '');
@@ -70,6 +72,7 @@ async function complete(
   system: string,
   messages: Message[],
   onToken?: TokenHandler,
+  signal?: AbortSignal,
 ): Promise<string> {
   const stream = Boolean(onToken);
   const response = await post(
@@ -82,6 +85,7 @@ async function complete(
       max_tokens: maxTokens,
       messages: [{ role: 'system', content: system }, ...messages],
     },
+    signal,
   );
   if (!stream)
     return ((await response.json()) as OpenAiResponse).choices?.[0]?.message?.content ?? '';
@@ -100,8 +104,9 @@ export async function completeMessage(
   system: string,
   messages: Message[],
   onToken?: TokenHandler,
+  signal?: AbortSignal,
 ): Promise<string> {
-  if (provider === 'openai') return complete(system, messages, onToken);
+  if (provider === 'openai') return complete(system, messages, onToken, signal);
   if (provider === 'ollama') {
     const stream = Boolean(onToken);
     const response = await post(
@@ -113,6 +118,7 @@ export async function completeMessage(
         messages: [{ role: 'system', content: system }, ...messages],
         options: { temperature, num_predict: maxTokens },
       },
+      signal,
     );
     if (!stream) return ((await response.json()) as OllamaResponse).message?.content ?? '';
     let output = '';
@@ -137,6 +143,7 @@ export async function completeMessage(
       max_tokens: maxTokens,
       messages,
     },
+    signal,
   );
   if (!stream) {
     const data = (await response.json()) as AnthropicResponse;

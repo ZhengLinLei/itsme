@@ -1,0 +1,56 @@
+How to deploy directly on your server
+--------------------------------------------
+
+
+Two options are avaliable:
+- 1. Use own generated image and deploy it on your server.
+- 2. Use the prebuilt image and deploy it on your server.
+
+
+## 1. Use own generated image and deploy it on your server
+-------------------------------------------------
+Clone the repository and build the image with the following command:
+
+```bash
+./BUILD.sh
+```
+
+Then, you can run the image with the following command just to text it:
+
+```bash
+./RUN.sh
+```
+
+When you are ready to deploy it on your server, you can use the following command:
+
+```bash
+.EXPORT.sh
+```
+
+The image is generated and saved in the `build` folder. You can copy it to your server and load it with the following command:
+
+```bash
+docker load < build/itsme.tar.gz
+```
+
+Then, you can run the image on your server with the following command:
+
+```bash
+if [ ! -f .env ]; then
+  echo ".env file not found. Please create a .env file with the necessary environment variables."
+  exit 1
+fi
+docker compose -f docker-compose.yml up -d
+```
+
+
+## 2. Use the prebuilt image and deploy it on your server
+-------------------------------------------------
+You can use the prebuilt image `zll/itsme:latest` and deploy it on your server with the following command:
+```bash
+if [ ! -f .env ]; then
+  echo ".env file not found. Please create a .env file with the necessary environment variables."
+  exit 1
+fi
+docker compose -f docker-compose.yml up -d
+```

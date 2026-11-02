@@ -1,13 +1,16 @@
 export type RequestBody = {
   message?: unknown;
-  conversationId?: string;
-  history?: unknown;
-  stream?: boolean;
+  stream?: unknown;
+  captchaToken?: unknown;
 };
 
-export type HistoryItem = {
-  role: 'user' | 'assistant';
-  content: string;
-};
+export type HttpError = Error & { status?: number; code?: string; retryAfter?: number };
 
-export type HttpError = Error & { status?: number };
+export function httpError(
+  status: number,
+  code: string,
+  message: string,
+  retryAfter?: number,
+): HttpError {
+  return Object.assign(new Error(message), { status, code, retryAfter });
+}
