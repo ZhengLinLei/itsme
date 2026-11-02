@@ -1,0 +1,41 @@
+{
+  "name": "itsme-api",
+  "version": "1.0.0",
+  "author": "ZhengLinLei",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ZhengLinLei/itsme.git"
+  },
+  "description": "Easy mount LLM AI backend with API",
+  "main": "dist/server.js",
+  "private": true,
+  "type": "module",
+  "license": "GNU General Public License v2.0",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/server.js",
+    "dev": "tsx watch src/server.ts",
+    "prisma:generate": "prisma generate",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier . --write",
+    "format:check": "prettier . --check",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist node_modules package-lock.json"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "@typescript-eslint/eslint-plugin": "^8.67.0",
+    "@typescript-eslint/parser": "^8.67.0",
+    "eslint": "^9.39.5",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-import": "^2.32.0",
+    "prettier": "^3.9.10",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "typescript-eslint": "^8.67.0"
+  }
+}

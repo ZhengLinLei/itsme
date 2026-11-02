@@ -1,0 +1,19 @@
+Edit this file with your business information. The API reloads it automatically; no restart is needed.
+
+Company: My Company LLC
+Business hours: Monday to Friday, 9:00 AM to 6:00 PM (Madrid time).
+Support email: support@example.com
+Phone: +1 900 000 000
+
+Services:
+- Basic plan: $9.99/month. Includes one user and email support.
+- Pro plan: $29.99/month. Up to 10 users and priority support.
+
+Policies:
+- Refunds: available within 14 days of purchase.
+- Orders ship within 24-48 business hours.
+
+Tone: friendly and professional. Use an informal tone with customers.
+
+Also you can add context of yourself and apply it to any of your website or application.
+For example, you can use it to provide information about your company, services, and policies. You can also use it to provide context about yourself, such as your background, experience, and expertise.
