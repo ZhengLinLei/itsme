@@ -351,10 +351,16 @@ All settings come from environment variables. `RUN.sh` loads `.env`; see [.env.e
 | `./BUILD.sh`                            | Full image (Node + Ollama). `--preload` bakes the model in (offline), `--slim` builds Node only, `-t tag`. |
 | `./RUN.sh`                              | Starts the hardened container. `-f` foreground, `--gpu` NVIDIA GPU, `--stop` stop.                         |
 | `./RUN.local.sh`                        | Runs everything locally without Docker (native Ollama + Node). See [above](#run-locally-without-docker).   |
+| `./CLIENT.sh`                           | Interactive terminal chat client. Saves its signed session token under `$XDG_STATE_HOME` (or `~/.local/state`). |
 | `./EXPORT.sh hub user/repository[:tag]` | Pushes the image to Docker Hub (run `docker login` first).                                                 |
 | `./EXPORT.sh tar [file]`                | Saves the image to `dist/*.tar.gz`. Load it elsewhere with `gunzip -c file.tar.gz \| docker load`.         |
 | `./scripts/clientTester.sh`             | Tests the REST API and its security checks (`API_URL`, `API_KEY`, `ADMIN_API_KEY`).                        |
 | `node scripts/wsTester.mjs [token]`     | Tests the WebSocket API (`WS_URL`, `MESSAGE`).                                                             |
+
+The terminal client reads `.env` when present and connects to `API_URL` (or
+`http://localhost:$PORT`). Use `./CLIENT.sh --new` to start without the saved conversation,
+`./CLIENT.sh --url https://api.example.com` for another server, and `./CLIENT.sh --help` for
+all options and interactive commands. If `API_KEY` is configured, it is sent as a bearer token.
 
 ## Development
 

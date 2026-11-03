@@ -1,0 +1,5 @@
+My computers sucks. I only managed to get it working with gemma3:1b. Do not try with qwen3.5:0.8b, it refuses to answer me idk...
+
+Qwen3:1.7b works fine on any computer, but it alluciates sometimes and do not stop repeating itself.
+
+If you have GPU or more powerful CPU, you can try qwen3.5:4b, Phi-4-mini or even LFM2.5 2.6B for better performance, but I don't have the resources to test them.
