@@ -1,5 +1,11 @@
 # itsme
 
+Docker image
+
+```bash
+docker push zhenglinlei/itsme:latest
+```
+
 Self-hosted AI assistant backend for a message manager. A Node (TypeScript) server answers each message with an LLM. It uses the business or personal information in `context/context.txt` and keeps every conversation for 24 hours. Clients connect over a **REST API** (optional streaming) or a **WebSocket**, whichever they prefer. It runs in Docker (`RUN.sh`) or directly on your machine (`RUN.local.sh`).
 
 - **Local by default:** [Ollama](https://ollama.com) runs inside the container with `qwen2.5:3b`. Messages never leave the machine.
