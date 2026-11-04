@@ -54,3 +54,7 @@ if [ ! -f .env ]; then
 fi
 docker compose -f docker-compose.yml up -d
 ```
+
+Each published GitHub release also publishes the same image with its release tag,
+for example `zll/itsme:v1.0.0`. The release workflow requires the repository
+secrets `DOCKERHUB_USERNAME` and `DOCKERHUB_TOKEN`.
